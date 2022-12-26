@@ -1,8 +1,7 @@
 # authentication-nestjs
+A project for classes.
 
 ## Description
-
-A project for classes.
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
 ## Installation
