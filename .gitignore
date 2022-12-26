@@ -1,6 +1,7 @@
 # compiled output
 /dist
 /node_modules
+package-lock.json
 
 pnpm-debug.log*
 
@@ -26,4 +27,3 @@ pnpm-debug.log*
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
->>>>>>> master
