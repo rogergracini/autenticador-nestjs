@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common"
+import { HttpException, HttpStatus, Injectable } from "@nestjs/common"
 
 import { User } from "./user.entity"
 import { UserRepository } from "./user.repository"
@@ -10,15 +10,19 @@ export class UserService {
         private readonly repository: UserRepository
     ) {}
 
-    private removePassword(user: User) {
+    public removePassword(user: User) {
         const { password, ...rest } = user
         return rest
     }
 
     public async getById(id: number) {
-        return this.removePassword(
-            await this.repository.findByPk(id)
-        )
+        const result = await this.repository.findByPk(id)
+        if (result) return this.removePassword(result)
+        else throw new HttpException('User does not found!', HttpStatus.NOT_FOUND)
+    }
+
+    public async getByUsername(username: string) {
+        return await this.repository.findByUsername(username)
     }
 
     public async getList() {
@@ -28,20 +32,21 @@ export class UserService {
     }
 
     public async create(record: User) {
-        return this.removePassword(
-            await this.repository.create(record)
-        )
+        const result = await this.repository.create(record)
+        if (result) return this.removePassword(result)
+        else throw new HttpException('Username already exists!', HttpStatus.BAD_REQUEST)
     }
 
     public async update(id: number, record: User) {
         record.id = id
-        return this.removePassword(
-            await this.repository.update(record)
-        )
+        const result = await this.repository.update(record)
+        if (result) return this.removePassword(result)
+        else throw new HttpException('User does not found!', HttpStatus.NOT_FOUND)
     }
 
     public async remove(id: number) {
-        return this.repository.delete(id)
+        if (await this.repository.delete(id)) return true
+        else throw new HttpException('User does not found!', HttpStatus.NOT_FOUND)
     }
 
 }

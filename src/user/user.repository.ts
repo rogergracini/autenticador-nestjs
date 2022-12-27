@@ -15,29 +15,43 @@ export class UserRepository implements Repository<User> {
         })
     }
     
-    public async findByPk(id: number): Promise<User> {
+    public async findByPk(id: number): Promise<User | null> {
         return new Promise((resolve, reject) => {
             resolve(this.document.find(user => user.id == id))
         })
     }
-    
-    public async create(record: User): Promise<User> {
+
+    public async findByUsername(username: string): Promise<User | null> {
         return new Promise((resolve, reject) => {
-            const last = this.document[this.document.length-1]
-            record.id = last.id + 1
-            this.document.push(record)
-            resolve(record)
+            resolve(this.document.find(user => user.username === username))
         })
     }
     
-    public async update(record: User): Promise<User> {
+    public async create(record: User): Promise<User | null> {
+        const alreadyExist = await this.findByUsername(record.username)
+
+        return new Promise((resolve, reject) => {
+            if (alreadyExist) {
+                resolve(null)
+            } else {
+                const last = this.document[this.document.length-1]
+                record.id = last.id + 1
+                this.document.push(record)
+                resolve(record)
+            }
+        })
+    }
+    
+    public async update(record: User): Promise<User | null> {
         const finded = await this.findByPk(record.id)
 
         return new Promise((resolve, reject) => {
-            if (finded.password) {
-                finded.password = record.password
-            } else {
-                finded.name = record.name
+            if (finded) {
+                if (finded.password) {
+                    finded.password = record.password
+                } else {
+                    finded.name = record.name
+                }
             }
             resolve(finded)
         })
