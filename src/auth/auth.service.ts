@@ -12,13 +12,15 @@ export class AuthService {
         private readonly jwtService: JwtService
     ) {}
 
-    public async signIn(username: string, password: string): Promise<string | null> {
+    public async signIn(username: string, password: string) {
         const user = await this.userService.getByUsername(username)
 
         if (user && password === user.password) {
-            return this.jwtService.sign(
-                this.userService.removePassword(user)
-            )
+            return {
+                token: this.jwtService.sign(
+                    this.userService.removePassword(user)
+                )
+            }
         }
 
         throw new HttpException('Invalid login!', HttpStatus.UNAUTHORIZED)
