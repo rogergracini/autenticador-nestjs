@@ -17,6 +17,9 @@ export class AuthService {
 
         if (user && password === user.password) {
             return {
+                id: user.id,
+                name: user.name,
+                username: user.username,
                 token: this.jwtService.sign(
                     this.userService.removePassword(user)
                 )

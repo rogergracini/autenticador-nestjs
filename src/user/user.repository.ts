@@ -47,11 +47,10 @@ export class UserRepository implements Repository<User> {
 
         return new Promise((resolve, reject) => {
             if (finded) {
-                if (finded.password) {
+                if (record.password) {
                     finded.password = record.password
-                } else {
-                    finded.name = record.name
                 }
+                finded.name = record.name
             }
             resolve(finded)
         })
