@@ -23,6 +23,18 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
+## Using Docker
+
+```bash
+$ docker build -f .devops/Dockerfile -t authentication:v1.0.0 .
+```
+
+Run Kubernetes container:
+
+```bash
+$ kubectl apply -f .devops/deploy.yml
+```
+
 ## License
 
 Nest is [MIT licensed](LICENSE).
