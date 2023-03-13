@@ -23,11 +23,20 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: "authentication"
+  name: authentication
+  namespace: default
 spec:
   selector:
-    app: "authentication"
+    app: authentication
   ports:
-  - name: "application-port"
-    port: 3000
-    targetPort: 3000
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
+  type: LoadBalancer
+  sessionAffinity: None
+  externalTrafficPolicy: Cluster
+  ipFamilies:
+    - IPv4
+  ipFamilyPolicy: SingleStack
+  allocateLoadBalancerNodePorts: true
+  internalTrafficPolicy: Cluster
