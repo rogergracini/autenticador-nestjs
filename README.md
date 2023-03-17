@@ -26,7 +26,7 @@ $ npm run start:prod
 ## Using Docker
 
 ```bash
-$ docker build -f .devops/Dockerfile -t authentication:v1.0.0 .
+$ docker build -f .devops/Dockerfile -t authentication .
 ```
 
 Run Kubernetes container:

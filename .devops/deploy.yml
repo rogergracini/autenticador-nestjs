@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: authentication
-        image: authentication:v1.0.0
+        image: authentication:latest
         ports:
           - containerPort: 3000
       restartPolicy: Always
