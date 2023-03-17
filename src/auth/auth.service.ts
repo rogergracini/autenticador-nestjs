@@ -20,6 +20,7 @@ export class AuthService {
                 id: user.id,
                 name: user.name,
                 username: user.username,
+                roles: user.roles,
                 token: this.jwtService.sign(
                     this.userService.removePassword(user)
                 )

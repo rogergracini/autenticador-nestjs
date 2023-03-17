@@ -1,25 +1,25 @@
 import { Injectable } from "@nestjs/common"
 
 import { AbstractRepository } from "../abstractions/abstract.repository"
-import { User } from "./user.entity"
+import { Role } from "./role.entity"
 
 @Injectable()
-export class UserRepository extends AbstractRepository<User> {
+export class RoleRepository extends AbstractRepository<Role> {
 
     constructor() {
         super(
-            [{ id: 1, name: 'Uedson Reis', username: 'uedsonreis', password: '123456' } as User]
+            [{ id: 1, name: 'ADMIN', description: 'Permissões de administrador' } as Role]
         )
     }
 
-    public async findByUsername(username: string): Promise<User | null> {
+    public async findByName(name: string): Promise<Role | null> {
         return new Promise((resolve, reject) => {
-            resolve(this.document.find(user => user.username === username))
+            resolve(this.document.find(role => role.name === name))
         })
     }
     
-    public async create(record: User): Promise<User | null> {
-        const alreadyExist = await this.findByUsername(record.username)
+    public async create(record: Role): Promise<Role | null> {
+        const alreadyExist = await this.findByName(record.name)
         
         return new Promise((resolve, reject) => {
             if (alreadyExist) {
@@ -33,15 +33,12 @@ export class UserRepository extends AbstractRepository<User> {
         })
     }
     
-    public async update(record: User): Promise<User | null> {
+    public async update(record: Role): Promise<Role | null> {
         const finded = await this.findByPk(record.id)
 
         return new Promise((resolve, reject) => {
-            if (finded) {
-                if (record.password) {
-                    finded.password = record.password
-                }
-                finded.name = record.name
+            if (finded && record.description) {
+                finded.description = record.description
             }
             resolve(finded)
         })
