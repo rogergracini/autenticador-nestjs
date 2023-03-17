@@ -42,6 +42,7 @@ export class UserRepository extends AbstractRepository<User> {
                     finded.password = record.password
                 }
                 finded.name = record.name
+                finded.roles = record.roles
             }
             resolve(finded)
         })
