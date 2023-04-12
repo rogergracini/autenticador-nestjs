@@ -38,3 +38,6 @@ $ kubectl apply -f .devops/deploy.yml
 ## License
 
 Nest is [MIT licensed](LICENSE).
+
+## API Documentation
+http://localhost:3000/docs
