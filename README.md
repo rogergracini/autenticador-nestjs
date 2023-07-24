@@ -41,4 +41,4 @@ Nest is [MIT licensed](LICENSE).
 
 ## API Documentation
 After starting the application access the following:
-http://localhost:3000/docs
+http://localhost:3030/docs
