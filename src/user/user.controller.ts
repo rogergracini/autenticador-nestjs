@@ -50,8 +50,7 @@ export class UserController {
     @UseGuards(AuthGuard('jwt'))
     @ApiResponse({ type: Boolean, description: 'True if the user was deleted.' })
     public async remove(@Param('id') id: string) {
-        const removed = await this.service.remove(Number(id))
-        return !removed
+        return await this.service.remove(Number(id))
     }
 
 }
