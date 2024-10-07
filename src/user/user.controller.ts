@@ -31,7 +31,12 @@ export class UserController {
     @ApiBody({ type: User, description: "The user data to be stored." })
     @ApiCreatedResponse({ type: User, description: 'The saved user data.' })
     public async store(@Body() body: User) {
+        if (!body.name || !body.username || !body.password) {
+            throw new HttpException("'name', 'username' and 'password' are required to create a new user", HttpStatus.BAD_REQUEST)
+        }
+
         const result = await this.service.create(body)
+        
         if (result) return result
         else throw new HttpException('Username already exists!', HttpStatus.BAD_REQUEST)
     }

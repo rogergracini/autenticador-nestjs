@@ -1,5 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from "@nestjs/common"
-import { AbstractRepository } from "src/abstractions/abstract.repository"
+import { Injectable } from "@nestjs/common"
 import { AbstractService } from "src/abstractions/abstract.service"
 
 import { User } from "./user.entity"
